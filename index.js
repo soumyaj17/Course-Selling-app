@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose") ; 
-const{MONGO_URL} = require("../config");
+const{MONGO_URL} = require("../Week-8/config");
 
 app.use(express.json());
 
@@ -21,7 +21,7 @@ app.use("/admin",adminRouter);
 // to ab jo bhi request /user/signup pe aayegi to usko app.use("/user",userRouter ); sidha userrouter pe route kr dega 
 
 async function main(){
-    await mongoose.connect("MONGO_URL")
+    await mongoose.connect(MONGO_URL)
     app.listen(3000);
 }
 
