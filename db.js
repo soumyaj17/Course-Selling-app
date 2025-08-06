@@ -31,10 +31,10 @@ const purchaseSchema = new Schema({
 });
 
 
-const userModel = mongoose.model("users" , userSchema);
-const adminModel = mongoose.model("admin" , adminSchema);
-const courseModel = mongoose.model("courses" , courseSchema);
-const purchaseModel = mongoose.model("purchases" , purchaseSchema);
+const userModel = mongoose.model("users" , userSchema , "users");
+const adminModel = mongoose.model("admin" , adminSchema , "admin");
+const courseModel = mongoose.model("courses" , courseSchema , "courses");
+const purchaseModel = mongoose.model("purchases" , purchaseSchema , "purchases");
 
 module.exports = {
     userModel , 
