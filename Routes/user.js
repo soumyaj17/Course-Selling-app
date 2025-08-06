@@ -3,6 +3,8 @@ const userRouter = Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose") ; 
 const{userModel , courseModel , purchaseModel} = require("../db");
+const jwt = require("jsonwebtoken");
+const {JWT_USER_PASSWORD} = require("../config");
 
 
 userRouter.post("/signup" , async(req , res)=>{
@@ -28,14 +30,43 @@ userRouter.post("/signup" , async(req , res)=>{
             });
         }
 
-
 })
 
 
-userRouter.post("/login" , (req , res)=>{
-    const {email , password} = req.body ; 
+userRouter.post("/signin" , async(req , res)=>{
+    const {email , password} = req.body ;  // destruct email and password from req.body
 
-    
+    const user = await userModel.findOne({
+            email : email
+    });
+
+    if(user){
+        const dbpassword = user.password ;  // fetch database stored password 
+        const userr = bcrypt.compare(password , dbpassword); // and compare with body password 
+        
+        if(userr){
+            const token = jwt.sign({
+                id : userr._id
+            } , JWT_USER_PASSWORD);
+
+            res.status(200).json({
+                token : token
+            })
+        }
+
+        else{
+            res.status(403).json({
+                messege : "Wrong Credential"
+            })
+        }
+
+    }
+
+    else{
+        res.status(404).json({
+            message : "user not found!"
+        })
+    }
 
     
 })
