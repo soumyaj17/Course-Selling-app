@@ -2,8 +2,6 @@ const mongoose = require("mongoose") ;
 const Schema = mongoose.Schema ; 
 const ObjectId = mongoose.Types.ObjectId ;
 
-mongoose.connect("mongodb+srv://soumyajain9413:Soumya%40123@soumyajain17.clqfcrw.mongodb.net/Course-Selling-app")
-
 const userSchema = new Schema({
     email : {type : String , unique : true} , 
     password : String ,
@@ -33,10 +31,10 @@ const purchaseSchema = new Schema({
 });
 
 
-const userModel = mongoose.Model("users" , userSchema);
-const adminModel = mongoose.Model("admin" , adminSchema);
-const courseModel = mongoose.Model("courses" , courseSchema);
-const purchaseModel = mongoose.Model("purchases" , purchaseSchema);
+const userModel = mongoose.model("users" , userSchema);
+const adminModel = mongoose.model("admin" , adminSchema);
+const courseModel = mongoose.model("courses" , courseSchema);
+const purchaseModel = mongoose.model("purchases" , purchaseSchema);
 
 module.exports = {
     userModel , 

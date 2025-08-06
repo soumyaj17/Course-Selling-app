@@ -1,11 +1,8 @@
 const { Router } = require("express") ; 
 const userRouter = Router();
-
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose") ; 
 const{userModel , courseModel , purchaseModel} = require("../db");
-
-
 
 
 userRouter.post("/signup" , async(req , res)=>{
@@ -35,9 +32,11 @@ userRouter.post("/signup" , async(req , res)=>{
 })
 
 
-
-
 userRouter.post("/login" , (req , res)=>{
+    const {email , password} = req.body ; 
+
+    
+
     
 })
 
