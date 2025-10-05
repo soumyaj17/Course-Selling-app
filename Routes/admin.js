@@ -1,6 +1,7 @@
 const {Router} = require("express");
 const adminRouter = Router();
 const {adminModel} = require("../db");
+const{courseModel} = require("../db");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose") ; 
 const jwt = require("jsonwebtoken");
@@ -76,7 +77,7 @@ adminRouter.post("/createAcourse" , adminauthmiddleware,  async(req , res)=>{
 
         const {title , description , price , imageUrl } = req.body ; 
 
-        const course = await adminModel.create({
+        const course = await courseModel.create({
 
             title: title,
             description: description,
@@ -97,7 +98,7 @@ adminRouter.put("changecoursecontents" , adminauthmiddleware ,async(req , res)=>
             const adminid = req.userid ; 
             const {title , description , price , imageUrl  , Courseid} = req.body ; 
             
-            const course = await adminModel.updateOne({
+            const course = await courseModel.updateOne({
                     _id : Courseid , 
                     creatorId :  adminid
 
@@ -119,7 +120,7 @@ adminRouter.put("changecoursecontents" , adminauthmiddleware ,async(req , res)=>
 adminRouter.get("/SeeAllcourse" , adminauthmiddleware , async(req , res)=>{
             const userId = req.userid ; 
 
-            const courses  = await adminModel.find({
+            const courses  = await courseModel.find({
                 creatorId : userId
             });
 
@@ -135,7 +136,7 @@ adminRouter.post("/deleteAcourse" ,adminauthmiddleware , async(req , res)=>{
             const userID = req.userid ;
             const id = req.courseID ;
 
-            const deletedcourse = await adminModel.deleteOne({
+            const deletedcourse = await courseModel.deleteOne({
                     creatorId : userID,
                     _id : id
             });

@@ -5,7 +5,7 @@ const mongoose = require("mongoose") ;
 const{userModel , courseModel , purchaseModel} = require("../db");
 const jwt = require("jsonwebtoken");
 const {JWT_USER_PASSWORD} = require("../config");
-const {userauth} = require("../middlewares/userauth")
+const {userauth} = require("../middlewares/userauth");
 
 
 userRouter.post("/signup" , async(req , res)=>{
@@ -72,21 +72,20 @@ userRouter.post("/signin" , async(req , res)=>{
     
 })
 
-userRouter.post("/purchaseCourse" , userauth , (req , res)=>{
-        const {userid} = req.body ;
 
-        
+userRouter.get("/SeeAllPurchasedCourse" ,userauth ,  async(req ,res)=>{
+        const userid = req.userid ; 
 
-    
-})
+        const SeeAllPurchasedCourse = await purchaseModel.find({
+            userId : userid
+        });
 
-userRouter.get("/SeeAllCourse" , (req , res)=>{
-    
-})
+        res.status(200).json({
+            AllPurchasedCourse : SeeAllPurchasedCourse
+        });
 
-userRouter.get("/SeeCourse" , (req , res)=>{
-    
-})
+});
+
 
 module.exports = {
     userRouter
